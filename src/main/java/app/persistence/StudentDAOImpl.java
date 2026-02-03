@@ -22,4 +22,15 @@ public class StudentDAOImpl implements StudentDAO {
         em.close();
         return student;
     }
+
+    @Override
+    public Student update(Student student)
+    {
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        Student mergedStudent = em.merge(student);
+        em.getTransaction().commit();
+        em.close();
+        return mergedStudent;
+    }
 }

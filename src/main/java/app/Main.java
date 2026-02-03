@@ -54,5 +54,11 @@ public class Main
         LOGGER.info("Testing person from db: {}", personFromDB);
         LOGGER.info("Testing student from db: {}", studentFromDB);
         LOGGER.info("Testing course from db: {}", courseFromDB);
+
+        studentFromDB.setAddress("Firskovsvej 11");
+        studentFromDB.setName("Fie");
+        Student updatedStudent = studentDAO.update(studentFromDB);
+
+        LOGGER.info("Updated student from db: {}", updatedStudent);
     }
 }
