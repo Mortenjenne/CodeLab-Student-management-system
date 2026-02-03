@@ -79,6 +79,9 @@ public class Main
         students.forEach(s -> studentDAO.create(s));
         courses.forEach(c -> courseDAO.create(c));
 
-        List<Student> 
+        List<Student> studentsFromDB = studentDAO.findAll();
+        studentsFromDB.forEach(System.out::println);
+
+        List<Course> coursesFromDB = courseDAO.findAll();
     }
 }
