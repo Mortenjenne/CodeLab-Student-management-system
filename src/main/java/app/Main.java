@@ -1,18 +1,17 @@
 package app;
 
 import app.config.HibernateConfig;
+import app.entities.Course;
 import app.entities.Person;
 import app.entities.Student;
 import app.entities.StudentStatus;
-import app.persistence.PersonDAO;
-import app.persistence.PersonDAOImpl;
-import app.persistence.StudentDAO;
-import app.persistence.StudentDAOImpl;
+import app.persistence.*;
 import jakarta.persistence.EntityManagerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 
 public class Main
@@ -23,7 +22,7 @@ public class Main
         EntityManagerFactory emf = HibernateConfig.getEntityManagerFactory();
         PersonDAO personDAO = new PersonDAOImpl(emf);
         StudentDAO studentDAO = new StudentDAOImpl(emf);
-
+        CourseDAO courseDAO = new CourseDAOImpl(emf);
 
         Person person = Person.builder()
                 .name("Morten")
@@ -40,10 +39,20 @@ public class Main
                 .dateOfEnrollment(LocalDate.of(2026,2,3))
                 .build();
 
-        Person fromDB = personDAO.createPerson(person);
-        Student studentFromDB = studentDAO.create(student);
+        Course course = Course.builder()
+                .name("Data structures")
+                .classroom("3.4")
+                .teacher("Jon Bertelsen")
+                .semester("3. semester")
+                .timeOfCoruse(LocalTime.of(9,00))
+                .build();
 
-        LOGGER.info("Testing person from db: {}", fromDB);
-        LOGGER.info("Testing stundent from db: {}", studentFromDB);
+        Person personFromDB = personDAO.createPerson(person);
+        Student studentFromDB = studentDAO.create(student);
+        Course courseFromDB = courseDAO.create(course);
+
+        LOGGER.info("Testing person from db: {}", personFromDB);
+        LOGGER.info("Testing student from db: {}", studentFromDB);
+        LOGGER.info("Testing course from db: {}", courseFromDB);
     }
 }
