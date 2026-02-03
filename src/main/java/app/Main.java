@@ -1,5 +1,6 @@
 package app;
 
+import app.Populate;
 import app.config.HibernateConfig;
 import app.entities.Course;
 import app.entities.Person;
@@ -12,6 +13,7 @@ import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 
 public class Main
@@ -70,5 +72,17 @@ public class Main
         boolean isCourseDeleted = courseDAO.delete(courseFromDB.getId());
         LOGGER.info("Student from db deleted: {}", isStudentDeleted);
         LOGGER.info("Course from db deleted: {}", isCourseDeleted);
+
+        List<Student> students = Populate.getStudents();
+        List<Course> courses = Populate.getCourses();
+
+        students.forEach(s -> studentDAO.create(s));
+        courses.forEach(c -> courseDAO.create(c));
+
+        List<Student> studentsFromDB = studentDAO.findAll();
+        studentsFromDB.forEach(System.out::println);
+
+        List<Course> coursesFromDB = courseDAO.findAll();
+        coursesFromDB.forEach(System.out::println);
     }
 }

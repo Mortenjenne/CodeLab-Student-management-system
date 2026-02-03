@@ -3,6 +3,9 @@ package app.persistence;
 import app.entities.Student;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.TypedQuery;
+
+import java.util.List;
 
 public class StudentDAOImpl implements StudentDAO {
     private EntityManagerFactory emf;
@@ -43,6 +46,14 @@ public class StudentDAOImpl implements StudentDAO {
             }
             em.getTransaction().rollback();
             return false;
+        }
+    }
+
+    @Override
+    public List<Student> findAll() {
+        try(EntityManager em = emf.createEntityManager()) {
+            TypedQuery<Student> query = em.createQuery("select s from Student s",Student.class);
+            return query.getResultList();
         }
     }
 }
