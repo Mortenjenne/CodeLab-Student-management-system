@@ -10,8 +10,8 @@ import java.util.Set;
 @Table(name = "student")
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
 @Builder
+@Getter
 @ToString
 @EqualsAndHashCode
 public class Student
@@ -37,6 +37,7 @@ public class Student
     private String address;
 
     @Setter
+    @Enumerated(EnumType.STRING)
     @Column(name = "student_status",nullable = false)
     private StudentStatus studentStatus;
 
@@ -48,7 +49,5 @@ public class Student
     @Column(name = "date_of_enrollment",nullable = false)
     private LocalDate dateOfEnrollment;
 
-    @Setter
-    @Column(name = "course_id",nullable = false)
     private Set<Integer> courseId;
 }
