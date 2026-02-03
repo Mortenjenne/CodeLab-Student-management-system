@@ -59,6 +59,11 @@ public class Main
         studentFromDB.setName("Fie");
         Student updatedStudent = studentDAO.update(studentFromDB);
 
+        courseFromDB.setClassroom("3.6");
+        courseFromDB.setTimeOfCoruse(LocalTime.of(12,30));
+        Course updatedCourse = courseDAO.update(courseFromDB);
+
         LOGGER.info("Updated student from db: {}", updatedStudent);
+        LOGGER.info("Updated course from db: {}", updatedCourse);
     }
 }

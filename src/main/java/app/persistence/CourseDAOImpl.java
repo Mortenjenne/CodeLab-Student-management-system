@@ -22,4 +22,14 @@ public class CourseDAOImpl implements CourseDAO {
         em.close();
         return course;
     }
+
+    @Override
+    public Course update(Course course) {
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        Course mergedCourse = em.merge(course);
+        em.getTransaction().commit();
+        em.close();
+        return mergedCourse;
+    }
 }
