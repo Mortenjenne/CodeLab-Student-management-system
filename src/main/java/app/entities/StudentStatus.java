@@ -1,4 +1,9 @@
 package app.entities;
 
-public enum StudentStatus {
+public enum StudentStatus
+{
+    ACTIVE,
+    INACTIVE,
+    GRADUATED,
+    SUSPENDED;
 }

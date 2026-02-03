@@ -1,10 +1,10 @@
 package app.entities;
 
-
 import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
+@Table(name = "person")
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -18,7 +18,7 @@ public class Person
     private Integer id;
 
     @Setter
-    @Column(name = "name", nullable = false)
+    @Column(name = "person_name", nullable = false)
     private String name;
 
     @Setter
