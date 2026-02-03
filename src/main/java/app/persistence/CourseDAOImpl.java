@@ -7,29 +7,42 @@ import jakarta.persistence.EntityManagerFactory;
 public class CourseDAOImpl implements CourseDAO {
     EntityManagerFactory emf;
 
-    public CourseDAOImpl(EntityManagerFactory emf)
-    {
+    public CourseDAOImpl(EntityManagerFactory emf) {
         this.emf = emf;
     }
 
     @Override
-    public Course create(Course course)
-    {
-        EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        em.persist(course);
-        em.getTransaction().commit();
-        em.close();
-        return course;
+    public Course create(Course course) {
+        try(EntityManager em = emf.createEntityManager()) {
+            em.getTransaction().begin();
+            em.persist(course);
+            em.getTransaction().commit();
+            return course;
+        }
     }
 
     @Override
     public Course update(Course course) {
-        EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        Course mergedCourse = em.merge(course);
-        em.getTransaction().commit();
-        em.close();
-        return mergedCourse;
+        try(EntityManager em = emf.createEntityManager()) {
+            em.getTransaction().begin();
+            Course mergedCourse = em.merge(course);
+            em.getTransaction().commit();
+            return mergedCourse;
+        }
+    }
+
+    @Override
+    public boolean delete(Integer id) {
+        try(EntityManager em = emf.createEntityManager()) {
+            em.getTransaction().begin();
+            Course course = em.find(Course.class, id);
+            if (course != null) {
+                em.remove(course);
+                em.getTransaction().commit();
+                return true;
+            }
+            em.getTransaction().rollback();
+            return false;
+        }
     }
 }
