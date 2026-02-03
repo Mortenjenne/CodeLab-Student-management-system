@@ -33,4 +33,20 @@ public class StudentDAOImpl implements StudentDAO {
         em.close();
         return mergedStudent;
     }
+
+    @Override
+    public boolean delete(Integer id)
+    {
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        Student student = em.find(Student.class, id);
+        if(student != null)
+        {
+            em.remove(student);
+            em.getTransaction().commit();
+            return true;
+        }
+        em.getTransaction().rollback();
+        return false;
+    }
 }

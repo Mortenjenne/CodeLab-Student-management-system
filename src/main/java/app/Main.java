@@ -65,5 +65,8 @@ public class Main
 
         LOGGER.info("Updated student from db: {}", updatedStudent);
         LOGGER.info("Updated course from db: {}", updatedCourse);
+
+        boolean isStudentDeleted = studentDAO.delete(studentFromDB.getId());
+        LOGGER.info("Student from db deleted: {}", isStudentDeleted);
     }
 }
