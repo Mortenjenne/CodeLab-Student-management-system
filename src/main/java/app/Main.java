@@ -83,5 +83,6 @@ public class Main
         studentsFromDB.forEach(System.out::println);
 
         List<Course> coursesFromDB = courseDAO.findAll();
+        coursesFromDB.forEach(System.out::println);
     }
 }
