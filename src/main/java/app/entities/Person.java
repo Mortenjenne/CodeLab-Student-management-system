@@ -24,6 +24,4 @@ public class Person
     @Setter
     @Column(name = "age", nullable = false)
     private int age;
-
-
 }
